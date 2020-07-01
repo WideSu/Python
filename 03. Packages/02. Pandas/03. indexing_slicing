@@ -86,6 +86,37 @@ d.iloc[[0,2,3],[1]]
 #select by label, using loc:
 #difference between iloc and loc is that iloc only support number and the endpoint is not included (just like index in array), but loc can support number and label and the endpoint is included.
 #loc is especially useful when only know columns' names
-
+df1 = d.loc[:,'col1'] #all rows' column 1
+  ->0    1
+    1    2
+    2    3
+    3    4
+    4    5
+    5    6
+    Name: col1, dtype: int64
+df2 = d.loc[0:2,'col1':'col2'] #first three rows!!!!! and column1 to col2 (included)
+  ->   col1 col2
+    0     1    1
+    1     2    2
+    2     3    3
+df3 = d.loc[0:2,['col1','col2']] #first three rows and col1 and col2
+  ->   col1 col2
+    0     1    1
+    1     2    2
+    2     3    3
+df4 = d.loc[[0,2],['col1','col2']] #first and third rows and col1 and col2
+  ->   col1 col2
+    0     1    1
+    2     3    3
+df5 = d.loc[[0,2],'col1':'col2'] #first and third rows, and col1 to col2
+  ->   col1 col2
+    0     1    1
+    2     3    3
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#boolean indexing:
+
+
+
+
+
 

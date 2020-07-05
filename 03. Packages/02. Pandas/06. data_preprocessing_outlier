@@ -1,1 +1,12 @@
+#find outlier using seaborn boxplot:
+import seaborn as sns
+df=np.concatenate([np.random.normal(0,1,1000),np.random.normal(8,1,10)])
+print(df.head())
+  ->
+sns.set_style('whitegrid')
+sns.distplot(dt_outlier)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#remove outlier using IQR (interquartile range):
+
+
 

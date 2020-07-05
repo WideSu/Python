@@ -2,6 +2,7 @@
 import seaborn as sns
 dt=np.concatenate([np.random.normal(0,1,1000),np.random.normal(8,1,10)])
 sns.distplot(dt)
+  -> ![image](https://github.com/shawn-yin128/image_folder/blob/master/pd_remove_outlier1.png)
 sns.boxplot(dt,orient='v') #orient='v' indicates the direction of graph
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #remove outlier using IQR (interquartile range):

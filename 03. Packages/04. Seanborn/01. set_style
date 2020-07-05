@@ -1,1 +1,7 @@
-
+#seaborn has 5 different styles and we can use set_style('') to change, default is darkgrid
+import seaborn as sns
+sns.set_style('darkgrid')
+data = np.arange(10)
+sns.distplot(data)
+  ->image.1
+#darkgrid and whitegrid have grid background, while white, dark, and ticks do not have grid background.  

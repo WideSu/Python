@@ -1,1 +1,20 @@
+df = pd.DataFrame({'col1':['A','A','C','B','A','B','A','C'],'col2':[11,54,67,25,29,44,9,20],'col3':[1,8,2,4,6,7,9,9]})
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#check if a col has duplication:
+np.where(df['col1'].duplicated()) #this will return the index that duplicates occurs
+  -> (array([1, 4, 5, 6, 7]),)
+print(df.iloc[np.where(df['col1'].duplicated())]) #with duplicates
+  ->  col1  col2  col3
+    1    A    54     8
+    4    A    29     6
+    5    B    44     7
+    6    A     9     9
+    7    C    20     9
+print(df.iloc[np.where(df['col2'].duplicated())]) #with no duplicates
+  ->Empty DataFrame
+    Columns: [col1, col2, col3]
+    Index: []
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#create duplicate row:
+
 

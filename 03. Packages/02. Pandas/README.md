@@ -17,3 +17,7 @@ image.2:
 image.3:
 
 ![image.3](https://github.com/shawn-yin128/image_folder/blob/master/pd_remove_outlier3.png)
+
+image.4:
+
+![image.4](https://github.com/shawn-yin128/image_folder/blob/master/pd_remove_outlier4.png)

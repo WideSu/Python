@@ -4,4 +4,9 @@ sns.set_style('darkgrid')
 data = np.arange(10)
 sns.distplot(data)
   ->image.1
+
+sns.set_style('white')
+data = np.arange(10)
+sns.distplot(data)
+  ->image.2
 #darkgrid and whitegrid have grid background, while white, dark, and ticks do not have grid background.  

@@ -60,10 +60,13 @@ print(join_df)
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #group by:
 #split data according to some criteria
-
-
-
-
-
-
-
+df = pd.DataFrame({})
+df = pd.DataFrame({'race':['A','A','C','B','A','B','A','C'],'age':[11,54,67,25,29,44,9,20]})
+df.groupby('race')['age'].mean() #this means, we split based on race, and for each group, find the mean of column 'age'
+print(df.groupby('race')['age'].mean())
+  ->race
+    A    25.75
+    B    34.50
+    C    43.50
+    Name: age, dtype: float64
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------

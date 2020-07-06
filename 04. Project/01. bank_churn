@@ -1,11 +1,105 @@
 #goal:
-  ##
+##use supervised learning models to identify customers who are likely to churn in the future
+##analyze features that affects user retention
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------  
 #load data:
+import pandas as pd
+import numpy as np
+df=pd.read_csv('bank.data.csv')
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#data information:
+#basic information:
+##what the data looks like:
+df.head(5)
+  -> 	RowNumber	CustomerId	Surname	CreditScore	Geography	Gender	Age	Tenure	Balance	NumOfProducts	HasCrCard	IsActiveMember	EstimatedSalary	Exited
+    0	        1	  15634602	Hargrave	      619	  France	Female	42	  2	    0.00	             1	        1	            1	  101348.88	      1
+    1	        2	  15647311	Hill	          608	  Spain	  Female	41	  1	    83807.86	         1	        0	            1	  112542.58	      0
+    2	        3	  15619304	Onio	          502	  France	Female	42	  8	    159660.80	         3	        1	            0	  113931.57	      1
+    3	        4	  15701354	Boni	          699	  France	Female	39	  1	    0.00	             2	        0	            0	  93826.63	      0
+    4	        5	  15737888	Mitchell	      850	  Spain	  Female	43	  2	    125510.82	         1	        1	            1	  79084.10	      0
+
+##number of row and column:
+print('Number of row: {}'.format(df.shape[0]))
+print('Number of column: {}'.format(df.shape[1]))
+  ->Number of rows: 10000
+    Number of columns: 16
+
+##check basic information:
+df.info()
+  -><class 'pandas.core.frame.DataFrame'>
+    RangeIndex: 10000 entries, 0 to 9999
+    Data columns (total 14 columns):
+     #   Column           Non-Null Count  Dtype  
+    ---  ------           --------------  -----  
+     0   RowNumber        10000 non-null  int64  
+     1   CustomerId       10000 non-null  int64  
+     2   Surname          10000 non-null  object 
+     3   CreditScore      10000 non-null  int64  
+     4   Geography        10000 non-null  object 
+     5   Gender           10000 non-null  object 
+     6   Age              10000 non-null  int64  
+     7   Tenure           10000 non-null  int64  
+     8   Balance          10000 non-null  float64
+     9   NumOfProducts    10000 non-null  int64  
+     10  HasCrCard        10000 non-null  int64  
+     11  IsActiveMember   10000 non-null  int64  
+     12  EstimatedSalary  10000 non-null  float64
+     13  Exited           10000 non-null  int64  
+     dtypes: float64(2), int64(9), object(3)
+     memory usage: 1.1+ MB
+
+##check if the values in each column are unique:
+df.nunique()
+  ->RowNumber          10000
+    CustomerId         10000
+    Surname             2932
+    CreditScore          460
+    Geography              3
+    Gender                 2
+    Age                   70
+    Tenure                11
+    Balance             6382
+    NumOfProducts          4
+    HasCrCard              2
+    IsActiveMember         2
+    EstimatedSalary     9999
+    Exited                 2
+    dtype: int64
+##those numbers mean how many unique number each column has
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#
+#features information:
+##check missing value:
+df.isnull().sum() 
+  ->RowNumber          0
+    CustomerId         0
+    Surname            0
+    CreditScore        0
+    Geography          0
+    Gender             0
+    Age                0
+    Tenure             0
+    Balance            0
+    NumOfProducts      0
+    HasCrCard          0
+    IsActiveMember     0
+    EstimatedSalary    0
+    Exited             0
+    dtype: int64
+##also, we can check the missing value using df.info()
+
+##statistical information:
+###for those data, only 'CreditScore', 'Age', 'Tenure', 'NumOfProducts','Balance', 'EstimatedSalary' are the data that we care about statistical data
+df[['CreditScore', 'Age', 'Tenure', 'NumOfProducts','Balance', 'EstimatedSalary']].describe()
+  ->	    CreditScore	  Age	          Tenure	      NumOfProducts	Balance	      EstimatedSalary
+    count	10000.000000	10000.000000	10000.000000	10000.000000	10000.000000	10000.000000
+    mean	650.528800	  38.921800	    5.012800	    1.530200	    76485.889288	100090.239881
+    std	  96.653299	    10.487806	    2.892174	    0.581654	    62397.405202	57510.492818
+    min	  350.000000	  18.000000	    0.000000	    1.000000	    0.000000	    11.580000
+    25%	  584.000000	  32.000000	    3.000000	    1.000000	    0.000000	    51002.110000
+    50%	  652.000000	  37.000000	    5.000000	    1.000000	    97198.540000	100193.915000
+    75%	  718.000000	  44.000000	    7.000000	    2.000000	    127644.240000	149388.247500
+    max	  850.000000	  92.000000	    10.000000	    4.000000	    250898.090000	199992.480000
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------

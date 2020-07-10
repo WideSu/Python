@@ -10,4 +10,4 @@ image.2:
 
 image.3:
 
-![image.3]()
+![image.3](https://github.com/shawn-yin128/image_folder/blob/master/bank_churn_correlation1.png)

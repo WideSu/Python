@@ -99,7 +99,7 @@ df[['CreditScore', 'Age', 'Tenure', 'NumOfProducts','Balance', 'EstimatedSalary'
     75%	  718.000000	  44.000000	    7.000000	    2.000000	    127644.240000	149388.247500
     max	  850.000000	  92.000000	    10.000000	    4.000000	    250898.090000	199992.480000
 
-##boxplot for numerical feature
+##boxplot for numerical feature:
 _,axss = plt.subplots(2,3, figsize=[20,10]) #this means that the following boxplot will generate 6 graphs (in two rows and three columns), and each graph is 20*10 in size
 sns.boxplot(x='Exited', y ='CreditScore', data=churn_df, ax=axss[0][0])
 sns.boxplot(x='Exited', y ='Age', data=churn_df, ax=axss[0][1])
@@ -109,11 +109,26 @@ sns.boxplot(x='Exited', y ='Balance', data=churn_df, ax=axss[1][1])
 sns.boxplot(x='Exited', y ='EstimatedSalary', data=churn_df, ax=axss[1][2])
   ->image.1
 
-##
+##understand categorical feature:
+_,axss = plt.subplots(2,2, figsize=[20,10])
+sns.countplot(x='Exited', hue='Geography', data=churn_df, ax=axss[0][0])
+sns.countplot(x='Exited', hue='Gender', data=churn_df, ax=axss[0][1])
+sns.countplot(x='Exited', hue='HasCrCard', data=churn_df, ax=axss[1][0])
+sns.countplot(x='Exited', hue='IsActiveMember', data=churn_df, ax=axss[1][1])
+  ->image.2
 
-
-
-
+##feature correlation:
+corr_score = churn_df[['CreditScore', 'Age', 'Tenure', 'NumOfProducts','Balance', 'EstimatedSalary']].corr()
+print(corr_score)
+  ->                 CreditScore       Age  ...   Balance  EstimatedSalary
+    CreditScore         1.000000 -0.003965  ...  0.006268        -0.001384
+    Age                -0.003965  1.000000  ...  0.028308        -0.007201
+    Tenure              0.000842 -0.009997  ... -0.012254         0.007784
+    NumOfProducts       0.012238 -0.030680  ... -0.304180         0.014204
+    Balance             0.006268  0.028308  ...  1.000000         0.012797
+    EstimatedSalary    -0.001384 -0.007201  ...  0.012797         1.000000
+sns.heatmap(corr_score)
+  ->image.3
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------

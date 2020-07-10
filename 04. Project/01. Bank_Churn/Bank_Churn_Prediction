@@ -99,7 +99,18 @@ df[['CreditScore', 'Age', 'Tenure', 'NumOfProducts','Balance', 'EstimatedSalary'
     75%	  718.000000	  44.000000	    7.000000	    2.000000	    127644.240000	149388.247500
     max	  850.000000	  92.000000	    10.000000	    4.000000	    250898.090000	199992.480000
 
+##boxplot for numerical feature
+_,axss = plt.subplots(2,3, figsize=[20,10]) #this means that the following boxplot will generate 6 graphs (in two rows and three columns), and each graph is 20*10 in size
+sns.boxplot(x='Exited', y ='CreditScore', data=churn_df, ax=axss[0][0])
+sns.boxplot(x='Exited', y ='Age', data=churn_df, ax=axss[0][1])
+sns.boxplot(x='Exited', y ='Tenure', data=churn_df, ax=axss[0][2])
+sns.boxplot(x='Exited', y ='NumOfProducts', data=churn_df, ax=axss[1][0])
+sns.boxplot(x='Exited', y ='Balance', data=churn_df, ax=axss[1][1])
+sns.boxplot(x='Exited', y ='EstimatedSalary', data=churn_df, ax=axss[1][2])
+  ->image.1
+
 ##
+
 
 
 

@@ -273,6 +273,57 @@ print_grid_search_metrics(Grid_RF)
 	->Best score: 0.8633333333333333
 		Best parameters set:
 		n_estimators:60
+best_RF_model = Grid_RF.best_estimator_
+print(best_RF_model)
+	->RandomForestClassifier(bootstrap=True, ccp_alpha=0.0, class_weight=None,
+                       criterion='gini', max_depth=None, max_features='auto',
+                       max_leaf_nodes=None, max_samples=None,
+                       min_impurity_decrease=0.0, min_impurity_split=None,
+                       min_samples_leaf=1, min_samples_split=2,
+                       min_weight_fraction_leaf=0.0, n_estimators=60,
+                       n_jobs=None, oob_score=False, random_state=None,
+                       verbose=0, warm_start=False)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#confusion matrix:
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+##write related function:
+###calculate accuracy, precision and recall, [[tn, fp],[]]
+def cal_evaluation(classifier, cm):
+    tn = cm[0][0]
+    fp = cm[0][1]
+    fn = cm[1][0]
+    tp = cm[1][1]
+    accuracy  = (tp + tn) / (tp + fp + fn + tn + 0.0)
+    precision = tp / (tp + fp + 0.0)
+    recall = tp / (tp + fn + 0.0)
+    print (classifier)
+    print ("Accuracy is: " + str(accuracy))
+    print ("precision is: " + str(precision))
+    print ("recall is: " + str(recall))
+    print ("recall is: " + str(recall))
+###print out confusion matrices
+def draw_confusion_matrices(confusion_matricies):
+    class_names = ['Not','Churn']
+    for cm in confusion_matrices:
+        classifier, cm = cm[0], cm[1]
+        cal_evaluation(classifier, cm)
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        cax = ax.matshow(cm, interpolation='nearest',cmap=plt.get_cmap('Reds'))
+        plt.title('Confusion matrix for ' + classifier)
+        fig.colorbar(cax)
+        ax.set_xticklabels([''] + class_names)
+        ax.set_yticklabels([''] + class_names)
+        plt.xlabel('Predicted')
+        plt.ylabel('True')
+        plt.show()
+
+##
+
+
 
 
 

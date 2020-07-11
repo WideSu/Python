@@ -322,10 +322,13 @@ def draw_confusion_matrices(confusion_matricies):
         plt.show()
 
 ##print 
-
+confusion_matrices = [("Random Forest", confusion_matrix(y_test,best_RF_model.predict(X_test))),("Logistic Regression", confusion_matrix(y_test,best_LR_model.predict(X_test))),("K nearest neighbor", confusion_matrix(y_test, best_KNN_model.predict(X_test)))]
+draw_confusion_matrices(confusion_matrices)
 	->image.4
-
-##
+	->image.5
+	->image.6
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+#ROC AUC
 
 
 

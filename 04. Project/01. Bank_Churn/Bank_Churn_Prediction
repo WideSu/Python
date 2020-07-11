@@ -307,19 +307,23 @@ def cal_evaluation(classifier, cm):
 ###print out confusion matrices
 def draw_confusion_matrices(confusion_matricies):
     class_names = ['Not','Churn']
-    for cm in confusion_matrices:
-        classifier, cm = cm[0], cm[1]
+    for cm in confusion_matrices: #confusion_matrices is a list that contains classifier name and confusion matrix calculated using function in tuple type
+        classifier, cm = cm[0], cm[1] #cm[0] is classifier name, cm[1] is the calculated confusion matrix
         cal_evaluation(classifier, cm)
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        cax = ax.matshow(cm, interpolation='nearest',cmap=plt.get_cmap('Reds'))
-        plt.title('Confusion matrix for ' + classifier)
+        fig = plt.figure() #plt.figure plays a role as setup, it set how the figure looks like
+        ax = fig.add_subplot(111) #this means the figure will be shown in 1 row and 1 column
+        cax = ax.matshow(cm, interpolation='nearest',cmap=plt.get_cmap('Reds')) #matshow is a function that transform matrix into graph
+        plt.title('Confusion matrix for ' + classifier) #set up the title of graph
         fig.colorbar(cax)
         ax.set_xticklabels([''] + class_names)
         ax.set_yticklabels([''] + class_names)
         plt.xlabel('Predicted')
         plt.ylabel('True')
         plt.show()
+
+##print 
+
+	->image.4
 
 ##
 

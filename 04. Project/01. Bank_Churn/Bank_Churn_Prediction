@@ -252,16 +252,27 @@ print(best_LR_model)
                    warm_start=False)
 
 ##KNN case:
-###for KNN, we care about how many neighbors
 parameters = {'n_neighbors':[1,3,5,7,9]}
 Grid_KNN = GridSearchCV(KNeighborsClassifier(),parameters, cv=5)
 Grid_KNN.fit(X_train, y_train)
 print_grid_search_metrics(Grid_KNN)
+	->Best score: 0.8322666666666667
+		Best parameters set:
+		n_neighbors:9
+best_KNN_model = Grid_KNN.best_estimator_
+print(best_KNN_model)
+	->KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+                     metric_params=None, n_jobs=None, n_neighbors=9, p=2,
+                     weights='uniform')
 
-
-
-
-
+##RF case:
+parameters = {'n_estimators' : [40,60,80]}
+Grid_RF = GridSearchCV(RandomForestClassifier(),parameters, cv=5)
+Grid_RF.fit(X_train, y_train)
+print_grid_search_metrics(Grid_RF)
+	->Best score: 0.8633333333333333
+		Best parameters set:
+		n_estimators:60
 
 
 

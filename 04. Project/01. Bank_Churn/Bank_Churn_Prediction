@@ -329,13 +329,23 @@ draw_confusion_matrices(confusion_matrices)
 	->image.6
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 #ROC AUC
+##ROC x aixs is false positive rate, y axix is true positive rate
 from sklearn.metrics import roc_curve
 from sklearn import metrics
 ##Use predict_proba to get the probability results of Random Forest
 y_pred_rf = best_RF_model.predict_proba(X_test)[:, 1]
 fpr_rf, tpr_rf, _ = roc_curve(y_test, y_pred_rf)
 
-
+##make roc curve
+plt.figure(1)
+plt.plot([0, 1], [0, 1], 'k--') #draw diagonal
+plt.plot(fpr_rf, tpr_rf, label='RF')
+plt.xlabel('False positive rate')
+plt.ylabel('True positive rate')
+plt.title('ROC curve - RF model')
+plt.legend(loc='best')
+plt.show()
+	->image.7
 
 
 

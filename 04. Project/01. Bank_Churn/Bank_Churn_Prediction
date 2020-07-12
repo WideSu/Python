@@ -328,7 +328,7 @@ draw_confusion_matrices(confusion_matrices)
 	->image.5
 	->image.6
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-#ROC AUC
+#ROC AUC:
 ##ROC x aixs is false positive rate, y axix is true positive rate
 from sklearn.metrics import roc_curve
 from sklearn import metrics
@@ -365,8 +365,45 @@ plt.show()
 	->image.8
 metrics.auc(fpr_lr,tpr_lr)
 	->0.7722314264879581
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#feature importance:
+X_with_corr = X.copy()
+X_with_corr['SalaryInRMB'] = X['EstimatedSalary'] * 6.91 #transfer $ into ¥
+X_with_corr.head()
+	->CreditScore	Gender	Age	Tenure	Balance	NumOfProducts	HasCrCard	IsActiveMember	EstimatedSalary	Geography_France	Geography_Germany	Geography_Spain	SalaryInRMB
+	0	619					True		42	2				0.00			1						1					1								101348.88				1									0									0								700320.7608
+	1	608					True		41	1				83807.86	1						0					1								112542.58				0									0									1								777669.2278
+	2	502					True		42	8				159660.80	3						1					0								113931.57				1									0									0								787267.1487
+	3	699					True		39	1				0.00			2						0					0								93826.63				1									0									0								648342.0133
+	4	850					True		43	2				125510.82	1						1					1								79084.10				0									0									1								546471.1310
 
-##ROC of 
+##add L1 regularization to logistic regression
+##check the coef for feature selection
+scaler = StandardScaler()
+X_l1 = scaler.fit_transform(X_with_corr)
+LRmodel_l1 = LogisticRegression(penalty="l1", C = 0.1, solver='liblinear')
+LRmodel_l1.fit(X_l1, y)
+indices = np.argsort(abs(LRmodel_l1.coef_[0]))[::-1]
+print ("Logistic Regression (L1) Coefficients")
+for ind in range(X_with_corr.shape[1]):
+	print ("{0} : {1}".format(X_with_corr.columns[indices[ind]],round(LRmodel_l1.coef_[0][indices[ind]], 4)))
+	->Logistic Regression (L1) Coefficients
+		Age : 0.7495
+		IsActiveMember : -0.524
+		Geography_Germany : 0.3171
+		Gender : 0.2541
+		Balance : 0.159
+		CreditScore : -0.0569
+		NumOfProducts : -0.0529
+		Tenure : -0.0384
+		EstimatedSalary : 0.0165
+		HasCrCard : -0.013
+		Geography_France : -0.0122
+		SalaryInRMB : 0.0037
+		Geography_Spain : 0.0
+
+##
+
 
 
 

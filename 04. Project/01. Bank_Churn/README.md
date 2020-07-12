@@ -27,3 +27,7 @@ image.6:
 image.7:
 
 ![image.7](https://github.com/shawn-yin128/image_folder/blob/master/bank_churn_roc.png)
+
+image.8:
+
+![image.8](https://github.com/shawn-yin128/image_folder/blob/master/bank_churn_roc2.png)

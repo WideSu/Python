@@ -366,9 +366,9 @@ plt.show()
 metrics.auc(fpr_lr,tpr_lr)
 	->0.7722314264879581
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#feature importance:
+#LR with feature selection:
 X_with_corr = X.copy()
-X_with_corr['SalaryInRMB'] = X['EstimatedSalary'] * 6.91 #transfer $ into ¥
+X_with_corr['SalaryInRMB'] = X['EstimatedSalary'] * 6.91 #this will cause SalaryInRMB correlate with EstimatedSalary
 X_with_corr.head()
 	->CreditScore	Gender	Age	Tenure	Balance	NumOfProducts	HasCrCard	IsActiveMember	EstimatedSalary	Geography_France	Geography_Germany	Geography_Spain	SalaryInRMB
 	0	619					True		42	2				0.00			1						1					1								101348.88				1									0									0								700320.7608
@@ -378,12 +378,13 @@ X_with_corr.head()
 	4	850					True		43	2				125510.82	1						1					1								79084.10				0									0									1								546471.1310
 
 ##add L1 regularization to logistic regression
-##check the coef for feature selection
+###L1 will randomly make one of those correlated features' coefficient small 
+###check the coef for feature selection
 scaler = StandardScaler()
 X_l1 = scaler.fit_transform(X_with_corr)
 LRmodel_l1 = LogisticRegression(penalty="l1", C = 0.1, solver='liblinear')
 LRmodel_l1.fit(X_l1, y)
-indices = np.argsort(abs(LRmodel_l1.coef_[0]))[::-1]
+indices = np.argsort(abs(LRmodel_l1.coef_[0]))[::-1] #np.argsort will sort the array and return the original index
 print ("Logistic Regression (L1) Coefficients")
 for ind in range(X_with_corr.shape[1]):
 	print ("{0} : {1}".format(X_with_corr.columns[indices[ind]],round(LRmodel_l1.coef_[0][indices[ind]], 4)))
@@ -399,12 +400,59 @@ for ind in range(X_with_corr.shape[1]):
 		EstimatedSalary : 0.0165
 		HasCrCard : -0.013
 		Geography_France : -0.0122
-		SalaryInRMB : 0.0037
+		SalaryInRMB : 0.0037 
 		Geography_Spain : 0.0
+		#salaryinrmb has a reletaive samll coefficient
 
-##
-
-
-
-
-
+##add L2 regularization to logistic regression
+###L2 will make the correlated features same coefficient
+###check the coef for feature selection
+np.random.seed()
+scaler = StandardScaler()
+X_l2 = scaler.fit_transform(X_with_corr)
+LRmodel_l2 = LogisticRegression(penalty="l2", C = 0.1, solver='liblinear', random_state=42)
+LRmodel_l2.fit(X_l2, y)
+LRmodel_l2.coef_[0]
+indices = np.argsort(abs(LRmodel_l2.coef_[0]))[::-1]
+print ("Logistic Regression (L2) Coefficients")
+for ind in range(X_with_corr.shape[1]):
+  print ("{0} : {1}".format(X_with_corr.columns[indices[ind]],round(LRmodel_l2.coef_[0][indices[ind]], 4)))
+	->Logistic Regression (L2) Coefficients
+		Age : 0.751
+		IsActiveMember : -0.5272
+		Gender : 0.2591
+		Geography_Germany : 0.2279
+		Balance : 0.162
+		Geography_France : -0.1207
+		Geography_Spain : -0.089
+		CreditScore : -0.0637
+		NumOfProducts : -0.0586
+		Tenure : -0.0452
+		HasCrCard : -0.0199
+		EstimatedSalary : 0.0137
+		SalaryInRMB : 0.0137
+		#salaryinrmb and estimatedsalary have same coefficient
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#RF with feature importance:
+###check feature importance of random forest for feature selection
+forest = RandomForestClassifier()
+forest.fit(X, y)
+importances = forest.feature_importances_
+indices = np.argsort(importances)[::-1]
+print("Feature importance ranking by Random Forest Model:")
+for ind in range(X.shape[1]):
+  print ("{0} : {1}".format(X.columns[indices[ind]],round(importances[indices[ind]], 4)))
+	->Feature importance ranking by Random Forest Model:
+		Age : 0.2393
+		EstimatedSalary : 0.1462
+		CreditScore : 0.1441
+		Balance : 0.1412
+		NumOfProducts : 0.1295
+		Tenure : 0.0829
+		IsActiveMember : 0.0404
+		Geography_Germany : 0.021
+		HasCrCard : 0.0184
+		Gender : 0.0184
+		Geography_France : 0.0098
+		Geography_Spain : 0.0089
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------

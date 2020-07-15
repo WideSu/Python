@@ -15,11 +15,24 @@ df.dropna(subset=['review_body'],inplace=True) #review_body column is the column
 df.isnull().sum()
 
 ##use first 1000 data as training data:
-
-
-
+data = df.loc[:1000,'review_body'].tolist() #tolist() transfer matrix to list
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#tokening and stemming:
+#tokenizing and stemming:
+##tokenizing means split sentence into multiple single words
+##the key is to find the stop word. for example, xx's this 's indicates the end of word.
+import nltk
+stopwords = nltk.corpus.stopwords.words('english') #put normal words into stopwords list
+stopwords.append("'s")
+stopwords.append("'m")
+stopwords.append("n't")
+stopwords.append("br")
+
+##stemming means put words into the original form. for example, 'learn', 'learns', 'learning' acutually stand for same word 'learn'
+##combine tokenizing and stemming:
+from nltk.stem.snowball import SnowballStemmer
+import re
+stemmer = SnowballStemmer('english')
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #TF-IDF:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------

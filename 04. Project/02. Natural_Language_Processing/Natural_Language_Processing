@@ -16,13 +16,46 @@ df.head()
 
 
 ##missing value:
-df.info()
 df.isnull().sum()
+  ->marketplace            0
+    customer_id            0
+    review_id              0
+    product_id             0
+    product_parent         0
+    product_title          2
+    product_category       0
+    star_rating            0
+    helpful_votes          0
+    total_votes            0
+    vine                   0
+    verified_purchase      0
+    review_headline        7
+    review_body          148
+    review_date            4
+    dtype: int64
 df.dropna(subset=['review_body'],inplace=True) #review_body column is the column that we care about
 df.isnull().sum()
+  ->marketplace          0
+    customer_id          0
+    review_id            0
+    product_id           0
+    product_parent       0
+    product_title        2
+    product_category     0
+    star_rating          0
+    helpful_votes        0
+    total_votes          0
+    vine                 0
+    verified_purchase    0
+    review_headline      7
+    review_body          0
+    review_date          4
+    dtype: int64
 
 ##use first 1000 data as training data:
 data = df.loc[:1000,'review_body'].tolist() #tolist() transfer matrix to list
+print(data[0])
+  ->Absolutely love this watch! Get compliments almost every time I wear it. Dainty.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #tokenizing and stemming:
 ##tokenizing means split sentence into multiple single words
@@ -54,6 +87,7 @@ def tokenization_and_stemming(text):
 
 ##example:
 tokenization_and_stemming(data[0])
+  ->['absolut','love','watch','get','compliment','almost','everi','time','wear','dainti']
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #TF-IDF:
 ##TF: Term Frequency (wordA in document/total word in document)
@@ -64,12 +98,30 @@ tfidf_matrix = tfidf_model.fit_transform(data)
 
 ##check the parameter 
 tfidf_model.get_params()
+  ->{'analyzer': 'word',
+     'binary': False,
+    'decode_error': 'strict',
+    'dtype': numpy.float64,
+    'encoding': 'utf-8',
+    'input': 'content',
+    'lowercase': True,
+    'max_df': 0.99,
+    'max_features': 1000,
+    'min_df': 0.01,
+    'ngram_range': (1, 1),
+    'norm': 'l2',
+    'preprocessor': None,
+    'smooth_idf': True,
+    'stop_words': 'english',
+    'strip_accents': None,
+    'sublinear_tf': False,
+    'token_pattern': '(?u)\\b\\w\\w+\\b',
+    'tokenizer': <function __main__.tokenization_and_stemming>,
+    'use_idf': True,
+    'vocabulary': None}
 
 ##get the words
 tf_selected_words = tfidf_model.get_feature_names()
-print(tf_selected_words)
-
-
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #K-means clustering:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------

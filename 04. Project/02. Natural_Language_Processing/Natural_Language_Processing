@@ -49,8 +49,8 @@ def tokenization_and_stemming(text):
 tokenization_and_stemming(data[0])
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #TF-IDF:
-##TF: Term Frequency (how many times a word appears in one document)
-##IDF: Inverse Document Frequency (the inverse ratio of documents that one word appears to total number of documents)
+##TF: Term Frequency (wordA in document/total word in document)
+##IDF: Inverse Document Frequency (log(total number of documents in corpus)/(number of document where wordA appears + 1))
 ##use TfidfVectorizer to create tf-idf matrix
 tfidf_model = TfidfVectorizer(max_df=0.99,max_features=1000,min_df=0.01,stop_words='english',use_idf=True,tokenizer=tokenization_and_stemming,ngram_range=(1,1))
 tfidf_matrix = tfidf_model.fit_transform(data)

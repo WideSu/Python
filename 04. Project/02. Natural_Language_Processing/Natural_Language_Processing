@@ -7,9 +7,16 @@ import numpy as np
 import pandas as pd
 df = pd.read_csv('data.tsv',sep='\t',header=0,error_bad_lines=Fales) #tsv is tab seperated file (csv is comma seperated file); header=0 means the head is row[0]; error_bad_lines=Fales means automatically deal with possible error.
 df.head()
+
 ##missing value:
 df.info()
-df.dropna()
+df.isnull().sum()
+df.dropna(subset=['review_body'],inplace=True) #review_body column is the column that we care about
+df.isnull().sum()
+
+##use first 1000 data as training data:
+
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #tokening and stemming:

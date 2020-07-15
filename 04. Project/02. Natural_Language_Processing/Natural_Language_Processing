@@ -1,7 +1,16 @@
 #goal:
 #In this project, we use unsupervised learning models to cluster unlabeled documents into different groups, visualize the results and identify their latent topics/structures.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#load data:
+#basic operation:
+##load data:
+import numpy as np
+import pandas as pd
+df = pd.read_csv('data.tsv',sep='\t',header=0,error_bad_lines=Fales) #tsv is tab seperated file (csv is comma seperated file); header=0 means the head is row[0]; error_bad_lines=Fales means automatically deal with possible error.
+df.head()
+##missing value:
+df.info()
+df.dropna()
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #tokening and stemming:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------

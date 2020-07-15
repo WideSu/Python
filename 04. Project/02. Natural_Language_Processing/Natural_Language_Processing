@@ -32,9 +32,29 @@ stopwords.append("br")
 from nltk.stem.snowball import SnowballStemmer
 import re
 stemmer = SnowballStemmer('english')
+###define function:
+def tokenization_and_stemming(text):
+  tokens = []
+  for word in nltk.word_tokenzize(text): #exclude stopwords and tokenize the document, generate a list of string
+    if word.lower() not in stopwords:
+      tokens.append(word.lower())
+  filtered_tokens = []
+  for token in tokens:
+    if re.search('[a-zA-Z]',token): #re.search will filter token that does not have letters
+      filtered_tokens.append(token)
+  stems = [stemmer.stem(t) for t in filtered_tokens]
+  return stems
 
+##example:
+tokenization_and_stemming(data[0])
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #TF-IDF:
+##TF: Term Frequency (how many times a word appears in one document)
+##IDF: Inverse Document Frequency (the inverse ratio of documents that one word appears to total number of documents)
+##use TfidfVectorizer to create tf-idf matrix
+tfidf_model = TfidfVectorizer(max_df=0.99,max_features=1000,min_df=0.01,stop_words='english',use_idf=True,tokenizer=tokenization_and_stemming,ngram_range=(1,1))
+tfidf_matrix = tfidf_model.fit_transform(data)
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #K-means clustering:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------

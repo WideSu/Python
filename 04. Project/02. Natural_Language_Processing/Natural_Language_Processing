@@ -124,6 +124,54 @@ tfidf_model.get_params()
 tf_selected_words = tfidf_model.get_feature_names()
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #K-means clustering:
+from sklearn.cluster import KMeans
+num_clusters = 5
+km = KMeans(n_clusters=num_clusters)
+km.fit(tfidf_matrix)
+clusters = km.labels_.tolist() #km.labels_ shows which cluster the text belongs to
+
+##create DataFrame films from all of the input files:
+product = { 'review': df[:1000].review_body, 'cluster': clusters}
+frame = pd.DataFrame(product, columns = ['review', 'cluster'])
+frame.head(10)
+  ->review	                                                cluster
+  0	Absolutely love this watch! Get compliments al...	      4
+  1	I love this watch it keeps time wonderfully.	          4
+  2	Scratches	                                              2
+  3	It works well on me. However, I found cheaper ...	      2
+  4	Beautiful watch face. The band looks nice all...	      2
+  5	i love this watch for my purpose, about the pe...	      4
+  6	for my wife and she loved it, looks great and ...	      1
+  7	I was about to buy this thinking it was a Swis...	      2
+  8	Watch is perfect. Rugged with the metal &#34;B...	      1
+  9	Great quality and build.<br />The motors are r...	      1
+
+##number of reviews included in each cluster:
+frame['cluster'].value_counts().to_frame() #transfer to dataframe form
+  ->	cluster
+      2	645
+      4	110
+      1	104
+      0	71
+      3	70
+
+##representative words for each cluster:
+###we use the top largest number's corresponding word to represent cluster
+km.cluster_centers_
+  ->array([[0.        , 0.        , 0.        , ..., 0.        , 0.00918964,
+            0.        ],
+          [0.00308358, 0.        , 0.        , ..., 0.002035  , 0.00357641,
+            0.02169867],
+          [0.00570286, 0.00446498, 0.00386628, ..., 0.00658131, 0.01765463,
+            0.01332411],
+          [0.        , 0.        , 0.        , ..., 0.        , 0.00679943,
+            0.        ],
+          [0.        , 0.04099742, 0.        , ..., 0.01228176, 0.01715362,
+            0.00397447]])
+km.cluster_centers_.shape
+  ->(5, 241) #5 clusters,each contains 241 words' tiidf
+
+##
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #Latent Dirichlet Allocation:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -311,9 +311,9 @@ df_topic_words.columns = ['Word '+str(i) for i in range(df_topic_words.shape[1])
 df_topic_words.index = ['Topic '+str(i) for i in range(df_topic_words.shape[0])]
 df_topic_words
   ->    Word 0  Word 1	Word 2	Word 3	Word 4	Word 5	Word 6	Word 7	Word 8	Word 9	Word 10	Word 11	Word 12	Word 13	Word 14
-Topic0	watch	  love	  great	  look	  beauti	color	  price	  realli	perfect	nice	  bought	big	    gift	  qualiti	excel
-Topic1	like	  batteri	watch	  product	look	  light	  design	great	  qualiti	band	  set	    seiko	  year	  chang	  awesom
-Topic2	watch	  band	  look	  like	  time	  hand	  replac	cheap	  second	week	  wrist	  buy	    make	  work	  ve
-Topic3	watch	  time	  wear	  band	  great	  look	  face	  read	  like	  larg	  day	    love	  easi	  small	  use
-Topic4	good	  work	  nice	  watch	  time	  price	  light	  look	  hand	  qualiti	expect	product	broke	  bad	    tell
+Topic0	watch	love	great	look	beauti	color	price	realli	perfect	nice	bought	big	gift	qualiti	excel
+Topic1	like	batteri watch	product look	light	design	great	qualiti	band	set	seiko	year	chang	awesom
+Topic2	watch	band	look	like	time	hand	replac	cheap	second	week	wrist	buy	make	work	ve
+Topic3	watch	time	wear	band	great	look	face	read	like	larg	day	love	easi	small	use
+Topic4	good	work	nice	watch	time	price	light	look	hand	qualiti	expect	product	broke	bad	tell
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------

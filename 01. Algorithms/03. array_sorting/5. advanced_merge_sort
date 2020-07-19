@@ -19,3 +19,15 @@ def merge_two(list1,list2):
     new_list.append(list2[j])
     j += 1
   return new_list
+
+def merge_sort(array):
+  if len(array) == 0 or len(array) == 1:
+    return array
+  middle = (len(array)+1)//2 #5//2 = 2
+  left = merge_sort(array[:middle])
+  right = merge_sort(array[middle:])
+  result = merge_two(left,right)
+  return result
+#complexity:
+time: O(nlogn)
+space: O(n+logn) = O(n)

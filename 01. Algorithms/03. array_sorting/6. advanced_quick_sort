@@ -1,4 +1,4 @@
-def quickSort(self, array):
+def quick_sort(self, array):
   self.quick_sort(array,0,len(array)-1)
   return array
   
@@ -21,9 +21,9 @@ def partition(self,lst,left,right):
   lst[start], lst[right] = lst[right], lst[start]
   return start
 
-def quick_sort(self,lst,left,right):
+def quick_sort_recursion(self,lst,left,right):
   if left >= right:
     return 
   pivot = self.partition(lst,left,right)
-  self.quick_sort(lst,left,pivot-1)
-  self.quick_sort(lst,pivot+1,right)
+  self.quick_sort_recursion(lst,left,pivot-1)
+  self.quick_sort_recursion(lst,pivot+1,right)

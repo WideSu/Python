@@ -1,9 +1,9 @@
 #array version:
-def quick_sort(self, array):
-  self.quick_sort(array,0,len(array)-1)
+def quick_sort(array):
+  quick_sort(array,0,len(array)-1)
   return array
   
-def partition(self,lst,left,right):
+def partition(lst,left,right):
   start = left
   end = right - 1
   import random
@@ -22,9 +22,9 @@ def partition(self,lst,left,right):
   lst[start], lst[right] = lst[right], lst[start]
   return start
 
-def quick_sort_recursion(self,lst,left,right):
+def quick_sort_recursion(lst,left,right):
   if left >= right:
     return 
   pivot = self.partition(lst,left,right)
-  self.quick_sort_recursion(lst,left,pivot-1)
-  self.quick_sort_recursion(lst,pivot+1,right)
+  quick_sort_recursion(lst,left,pivot-1)
+  quick_sort_recursion(lst,pivot+1,right)

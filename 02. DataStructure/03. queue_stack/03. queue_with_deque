@@ -10,5 +10,3 @@ pop() #remove and return the rightmost element
 popleft() #remove and return the leftmost element
 remove() #remove the first occurence of target
 reverse() #reverse
-
-

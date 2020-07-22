@@ -13,7 +13,7 @@ class Stack(object):
     if self.empty():
       return None
     return self.items.pop() #remove and return the last one in array
-  def top(self):
+  def top(self): #top is the next value pop out
     if self.empty():
       return None
     return self.items[-1]

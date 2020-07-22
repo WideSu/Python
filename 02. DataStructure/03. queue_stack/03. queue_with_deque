@@ -1,0 +1,5 @@
+#deque is a built in package from collections that can achieve queue without writting class.
+from collections import deque
+
+
+

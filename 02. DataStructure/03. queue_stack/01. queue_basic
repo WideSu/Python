@@ -20,6 +20,7 @@ class queue(object):
     if self.empty():
       return None
     return self.items[0]
+#time complexity: O(1)
 #example:
 q = queue()
 q.enqueue(5)

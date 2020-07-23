@@ -3,6 +3,7 @@
 class Stack(object):
   def __init__(self):
     self.items = []
+    self.min = []
   def __len__(self):
     return len(self.items)
   def empty(self):

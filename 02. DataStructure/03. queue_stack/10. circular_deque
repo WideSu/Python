@@ -1,3 +1,4 @@
+#goal: Design implementation of the circular double-ended queue (deque).
 class CircularQueue(object):
     def __init__(self, k):
       self.size = 0

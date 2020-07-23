@@ -1,8 +1,0 @@
-#code:
-def reverse_linked_list(head):
-    if not head or not head.next:
-        return None
-    new_head = reverse_linked_list(head.next)
-    head.next.next = head
-    head.next = None
-    return new_head

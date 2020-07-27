@@ -35,14 +35,16 @@ def check_palindrome(head):
     return True
     
 #what if the input is a string or list?
-    #there are the following situations:
-        #if the word or list contains even number of element, for each distinct element, it must appear at an even frequency.
-        #if the word or list contains odd number of element, only one element can appear at an odd frequency.
-        #example:
-            #aabbcc -> even number -> each distinct element appear twice(even)
-            #aabcc -> odd numver -> only one element(b) appear once(odd)
-    #ultimate conclusion, no matter even or odd, the largest number of odd frequency is 1
-    #so, we can put all distinct element into one dict and use its value to count its frequency
+    '''
+    there are the following situations:
+        if the word or list contains even number of element, for each distinct element, it must appear at an even frequency.
+        if the word or list contains odd number of element, only one element can appear at an odd frequency.
+        example:
+            aabbcc -> even number -> each distinct element appear twice(even)
+            aabcc -> odd numver -> only one element(b) appear once(odd)
+    ultimate conclusion, no matter even or odd, the largest number of odd frequency is 1
+    so, we can put all distinct element into one dict and use its value to count its frequency
+    '''
 
 #code:
 def check_palindrome(word):

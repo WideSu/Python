@@ -1,5 +1,7 @@
 #suppose we have a problem that we want to know how many time a word or number appears in a list.
+
 #if we dont know hashtable:
+
 #code:
 def frequency(array):
     count_words = []

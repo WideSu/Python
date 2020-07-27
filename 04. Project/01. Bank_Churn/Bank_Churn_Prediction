@@ -273,11 +273,7 @@ print(best_RF_model)
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #confusion matrix:
 from sklearn.metrics import confusion_matrix
-from sklearn.metrics import classification_report
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-##write related function:
-###calculate accuracy, precision and recall, [[tn, fp],[]]
+##calculate accuracy, precision and recall, [[tn, fp],[]]
 def cal_evaluation(classifier, cm):
     tn = cm[0][0]
     fp = cm[0][1]
@@ -290,8 +286,7 @@ def cal_evaluation(classifier, cm):
     print ("Accuracy is: " + str(accuracy))
     print ("precision is: " + str(precision))
     print ("recall is: " + str(recall))
-    print ("recall is: " + str(recall))
-###print out confusion matrices
+##print out confusion matrices
 def draw_confusion_matrices(confusion_matricies):
     class_names = ['Not','Churn']
     for cm in confusion_matrices: #confusion_matrices is a list that contains classifier name and confusion matrix calculated using function in tuple type

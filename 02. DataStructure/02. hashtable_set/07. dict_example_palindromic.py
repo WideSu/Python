@@ -3,6 +3,7 @@
 
 #palindrome in linkedlist:
 #basic idea is have one linkedlist and then reverse it to get a new one. Then have a traverse to check whether value equal or not.
+
 #code:
 def copy_list(head):
     fake_head = ListNode(None)
@@ -60,5 +61,5 @@ def check_palindrome(word):
     return True
 
 #complexity:
-time: O(n)
-sapce: O(c) #c is the distinct element in word
+#time: O(n)
+#sapce: O(c) #c is the distinct element in word

@@ -8,6 +8,7 @@ def reverse_by_recursion(head):
     return new_head
 
 #explanation in detail:
+'''
 suppose we have 4 nodes in a linkedlist
 1. new_head = reverse_by_recursion(head.next) will return the tail beacuse its next == None
 2. because when returning the tail, the function stops so for node 4, the code after reverse_by_recursion will not run
@@ -18,3 +19,4 @@ suppose we have 4 nodes in a linkedlist
 7. so when head = node2, new_head is still new_head (node4)
 8. actually, new_head does not effect the process because what we use is head, head.next and head.next.next and the new
 _head here is just used to record the new_head because we need to know the head to know the whole linkedlist
+'''

@@ -1,4 +1,5 @@
 #stack -> last in first out. 
+
 #code:
 class Stack(object):
   def __init__(self):
@@ -28,4 +29,5 @@ class Stack(object):
       return self.mins[-1]
     else:
       return -1
+
 #time complexity: O(1)

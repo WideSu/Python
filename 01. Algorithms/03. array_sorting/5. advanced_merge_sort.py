@@ -1,5 +1,6 @@
 #idea:
   #split array into pieces and for every two pieces, merge them with order, and then merge two pieces each containing 2 numbers and keep merging. 
+
 #code:
 def merge_two(list1,list2):
   new_list =[]
@@ -28,6 +29,7 @@ def merge_sort(array):
   right = merge_sort(array[middle:])
   result = merge_two(left,right)
   return result
+
 #complexity:
-time: O(nlogn)
-space: O(n+logn) = O(n)
+#time: O(nlogn)
+#space: O(n+logn) = O(n)

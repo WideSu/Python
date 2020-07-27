@@ -1,4 +1,5 @@
 #use dictionary to deal with word frequency problem
+
 #code:
 #with list:
 def count_word(arrary):

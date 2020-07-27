@@ -1,4 +1,6 @@
 #goal: sort a array that contains only -1, 0, 1.
+
+#code:
 def rainbow_sort(array):
   left = 0
   right = len(array) - 1

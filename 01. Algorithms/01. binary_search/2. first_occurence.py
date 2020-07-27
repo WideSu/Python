@@ -36,5 +36,5 @@ def first_occur(nums,target):
         return None
 
 #complexity:
-time complexity: O(logn)
-space complexity: O(1)
+#time complexity: O(logn)
+#space complexity: O(1)

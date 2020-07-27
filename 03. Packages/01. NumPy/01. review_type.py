@@ -18,7 +18,7 @@ s1 = 'single quote' # use single quotes
 s2= "double quote" # use double quotes 
 
 s3 = s1 + ' and ' + s2 # string concatenation
-  ->single quote and double quote
+  #->single quote and double quote
   
 'Caplitalize the string: ' + s3.capitalize() # Caplitalize the string (first letter)
 'Uppercase the string: ' + s3.upper() # Uppercase the string (all)
@@ -30,13 +30,13 @@ s3[1] #indexing
 
 s = "{} is handsome, but {} is not"
 print(s.format('Rayman','Jason'))
-  ->Rayman is handsome, but Jason is not
+  #->Rayman is handsome, but Jason is not
 s = "{1} is handsome, but {0} is not, {2} is super handsome"
 print(s.format('Jason', 'Rayman', 'Mike'))
-  ->Rayman is handsome, but Jason is not, Mike is super handsome
+  #->Rayman is handsome, but Jason is not, Mike is super handsome
 s = "{name1} is handsome, but {name2} is not"
 print(s.format(name2 = 1, name1 = 'Rayman'))
-  ->Rayman is handsome, but 1 is not
+  #->Rayman is handsome, but 1 is not
 -------------------------------------------------------------------------------------------------------------------------------
 #list (mutable):
 lst1 = [1, 2, 3, 4] # create a list with same data type values

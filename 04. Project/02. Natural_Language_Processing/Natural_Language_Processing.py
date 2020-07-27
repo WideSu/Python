@@ -7,16 +7,18 @@ import numpy as np
 import pandas as pd
 df = pd.read_csv('data.tsv',sep='\t',header=0,error_bad_lines=Fales) #tsv is tab seperated file (csv is comma seperated file); header=0 means the head is row[0]; error_bad_lines=Fales means automatically deal with possible error.
 df.head()
+  '''
   ->marketplace	customer_id	review_id	product_id	product_parent	product_title	                                      product_category	star_rating	helpful_votes	total_votes	vine	verified_purchase	review_headline	                            review_body	                                        review_date
   0	US	3653882	        R3O9SGZBVQBV76	B00FALQ1ZC	937001370	Invicta Women's 15150 "Angel" 18k Yellow Gold ...	  Watches	          5	          0	          0	N	    Y	                Five Stars	                            Absolutely love this watch! Get compliments al...	  2015-08-31
   1	US	14661224	RKH8BNC3L5DLF	B00D3RGO20	484010722	Kenneth Cole New York Women's KC4944 Automatic...	  Watches	          5	          0	          0	N	    Y	                I love thiswatch it keeps time wonderfully  I love this watch it keeps time wonderfully.	  2015-08-31
   2	US	27324930	R2HLE8WKZSU3NL	B00DKYC7TK	361166390	Ritche 22mm Black Stainless Steel Bracelet Wat...	  Watches	          2	          1	          1	N	    Y	                Two Stars	                            Scratches	                                          2015-08-31
   3	US	7211452	        R31U3UH5AZ42LL	B000EQS1JW	958035625	Citizen Men's BM8180-03E Eco-Drive Stainless S...	  Watches	          5	          0	          0	N	    Y	                Five Stars	                            It works well on me. However, I found cheaper ...	  2015-08-31
   4	US	12733322	R2SV659OUJ945Y	B00A6GFD7S	765328221	Orient ER27009B Men's Symphony Automatic Stain...	  Watches	          4	          0	          0	N	    Y	                Beautiful face, but cheap sounding link     Beautiful watch face. The band looks nice all...	  2015-08-31
-
+  '''
 
 ##missing value:
 df.isnull().sum()
+  '''
   ->marketplace            0
     customer_id            0
     review_id              0
@@ -33,8 +35,10 @@ df.isnull().sum()
     review_body          148
     review_date            4
     dtype: int64
+  '''
 df.dropna(subset=['review_body'],inplace=True) #review_body column is the column that we care about
 df.isnull().sum()
+  '''
   ->marketplace          0
     customer_id          0
     review_id            0
@@ -51,11 +55,14 @@ df.isnull().sum()
     review_body          0
     review_date          4
     dtype: int64
+  '''
 
 ##use first 1000 data as training data:
 data = df.loc[:1000,'review_body'].tolist() #tolist() transfer matrix to list
 print(data[0])
+  '''
   ->Absolutely love this watch! Get compliments almost every time I wear it. Dainty.
+  '''
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #tokenizing and stemming:
 ##tokenizing means split sentence into multiple single words
@@ -87,7 +94,9 @@ def tokenization_and_stemming(text):
 
 ##example:
 tokenization_and_stemming(data[0])
+  '''
   ->['absolut','love','watch','get','compliment','almost','everi','time','wear','dainti']
+  '''
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #TF-IDF:
 ##TF: Term Frequency (wordA in document/total word in document)
@@ -98,6 +107,7 @@ tfidf_matrix = tfidf_model.fit_transform(data)
 
 ##check the parameter 
 tfidf_model.get_params()
+  '''
   ->{'analyzer': 'word',
      'binary': False,
     'decode_error': 'strict',
@@ -119,6 +129,7 @@ tfidf_model.get_params()
     'tokenizer': <function __main__.tokenization_and_stemming>,
     'use_idf': True,
     'vocabulary': None}
+  '''
 
 ##get the words
 tf_selected_words = tfidf_model.get_feature_names()
@@ -134,6 +145,7 @@ clusters = km.labels_.tolist() #km.labels_ shows which cluster the text belongs 
 product = { 'review': df[:1000].review_body, 'cluster': clusters}
 frame = pd.DataFrame(product, columns = ['review', 'cluster'])
 frame.head(10)
+  '''
   ->review	                                                cluster
   0	Absolutely love this watch! Get compliments al...	      4
   1	I love this watch it keeps time wonderfully.	          4
@@ -145,19 +157,23 @@ frame.head(10)
   7	I was about to buy this thinking it was a Swis...	      2
   8	Watch is perfect. Rugged with the metal &#34;B...	      1
   9	Great quality and build.<br />The motors are r...	      1
+  '''
 
 ##number of reviews included in each cluster:
 frame['cluster'].value_counts().to_frame() #transfer to dataframe form
+  '''
   ->	cluster
       2	645
       4	110
       1	104
       0	71
       3	70
+  '''
 
 ##representative words for each cluster:
 ###we use the top largest number's corresponding word to represent cluster
 km.cluster_centers_
+  '''
   ->array([[0.        , 0.        , 0.        , ..., 0.        , 0.00918964,
             0.        ],
           [0.00308358, 0.        , 0.        , ..., 0.002035  , 0.00357641,
@@ -168,8 +184,11 @@ km.cluster_centers_
             0.        ],
           [0.        , 0.04099742, 0.        , ..., 0.01228176, 0.01715362,
             0.00397447]])
+  '''
 km.cluster_centers_.shape
+  '''
   ->(5, 241) #5 clusters,each contains 241 words' tiidf
+  '''
 
 ##print clusters and their representative words:
 order_centroids = km.cluster_centers_.argsort()[:, ::-1] #argsot() can sort ndarray from small to large and return the index
@@ -185,6 +204,7 @@ for i in range(num_clusters): #num_clusters = 5 is the parameter we set at first
     print ("Cluster " + str(i) + " reviews (" + str(len(cluster_reviews)) + " reviews): ")
     print (", ".join(cluster_reviews))
     print ()
+  '''
   -><Document clustering result by K-means>
     Cluster 0 words:good,product,seller,qualiti,price,big,
     Cluster 0 reviews (71 reviews): 
@@ -205,6 +225,7 @@ for i in range(num_clusters): #num_clusters = 5 is the parameter we set at first
     Cluster 4 words:love,watch,wife,husband,look,absolut,
     Cluster 4 reviews (110 reviews): 
     Absolutely love this watch! Get compliments almost every time I wear it. Dainty., I love this watch it keeps time wonderfully., i love this watch for my purpose, about the people complaining should of done their research better before buying. dumb people., Love this watch, I just received it yesterday it looks really nice on my  wrist, my friends and family love it., Grand Kids loved this, Have worn it constantly, love the light at night, Wife loves it and nice looking watch,, Love the look but the leather band is so stiff it doesn't conform well to my wrist., Loved the watch; it just did not work supposedly self-winding; tried all possible motions to cause the winder clearly visible from the rear of the watch; no luck, Love it, More beautiful in person. High quality! Looks understated but so sophisticated! It was a gift for my mother and she loved it!, Bought for a cousin, he loved it, the watch is beautiful, a little on the big side but it is perfect!!!!! LOVE LOVE LOVE!!!!!, Love. That is pretty much it. Item as described, really beautiful and functional., husband loves it, Love it, Love the Watch. Good Deal and works Good.. :-), Love fits good use it every day., Love the looks, love the style..... it's a Seiko., I love love love this watch it's beautiful!!, Its a great watch love tge color, I love this watch! Aside from being cheap, this watch fits perfectly my son's wrist. My first purchase was the gray one. Then I purchased blue for my husband. Now I'm planning to buy one for myself. It has a simple design and the size and thickness is just enough on my wrist. I really love this watch!, LOVE ITTTTTT!!!!!!!, Love love this watch fits nicely on my hand. Got lots of compliments on it 😆, I love it. I did not know that it glows in the dark. That was a nice surprise., love the look just too big for my wrist., A+ deal, love the band., love it. ellegant sleek, and ferrari, Its Great!!! So beautiful.<br /><br />Totally recommended. My mother loved it, Love the look and function as advertised. Couldn't beat the price., Love it and works very good! Looks exactly as pictured and love wearing., My favorite features in a watch, now available  in Vikings colors! Love love love!, love this watch color, Amazing watch, Love every aspect of this thing and especially for its price. So worth it., Love this watch. I actually purchased it for my son. It’s awesome., I love having this watch!  Make sure to allow it to charge in the sun when you first get it because it's solar.  You will lose some of the functions if it's not charged up properly., My wife is a dental hygienist and she loves her watch!, My mom LOVES this watch. The band is very smooth..., I bought it for my 7 year-old niece and she loved it so that makes me love the purchase as well!, This watch is beautiful!  Way better than the picture... and the pic is fab. I love it!, My husband loves it!  Excellent product!, My husband loves it and it does look very classy., I've been eyeing this watch for months now and i love it!!, Love it, Bought this watch as a birthday present for my boyfriend and he absolutely loved it!, Very classy, a little spendy, but you get what you pay for. My son loves it., She loves it., I love it, very comfortable. Feels weak in the bracelet., love it --came alot faster than noted too!, Love the watch, pretty colors., Wife loves it., I loved the face of this watch the moment I first saw it.  It's clean and bright and keeps good time.  I also love the fact that i don't have to wind it.  Yesterday I was sitting in a restaurant in Los Angeles and a lady passed by my table, stopped, stepped back and said: &#34;Nice watch!&#34;, I love this watch but within a month, the clasp has broken. Really disappointed!, Love the watch I will buy another one, My wife loves this watch., Excellent. My son loves it. He wants to swim with it, so we are yet to pass this test!, love, love<br />so cute and ladylike, I ordered this watch online and I absolutely love it. It's true to the picture, very sophisticated. It's great for nights out. Overall an amazing purchase!, It looks even better in person than it does in the picture. Awesome watch, I love Nixon., This is a very pretty watch .... My granddaughter loved it!, Love, Love, Love the soft shade of Lavender.  I ordered several for gifts & I know they will be a HIT!!!, A fun watch with a retro look!  Love this watch, highly recommend!, Wife loves it. So no complains!, My niece loved it, Beautiful watch! Son in Law loves it!, loved it, a very cool looking watch for a teenager., I absolutely love these silicone watch bands. Totally waterproof., Love this watch. It looks very professional and masculine. Got it for my husband for his birthday. At first he thought the face was a little too big, but now he loves it. Great price too, I love my watch it's exactly as pictured. A boyfriend style watch with the copper/rose gold accents., Love this retro watch!  Very stylish and fun!, I love the watch!!! However I only received the white one. Who can I talk to about not getting the black one delivered, love the design and style - awesome, I got this watch for my father for Father's Day, as an everyday watch, and was surprised how much he loves it. My mom says he wears it all the time,  and loves its simplicity., My wife loves the watch, so much she slept with it.she really appreciate the watch thank you very much, love it, We love it, I absolutely love this watch. It's casual enough to wear daily and dressy enough to wear out. Perfect :-), I love it! It's like a rolex but it's invicta., My husband LOVE it, I will definitely buy more in the future different color of course., Love this watch and many compliments on the large face, My wife loves her gift., I love it.....I can actually read the numbers!!, Love it. The perfect AKA gift!, Daughter loved it, I love it!!!!, Bought this for my son and he loves it..<br />No problem so far.., We bought this as a birthday present for my father-in-law and he loves it! Couldn't stop showing it off.<br />Very well made and does not look cheap which is always my fear with gold tone watches., I have 5 other Phlip Stein watches and I just love, love, love the Fruitz  watches!, Bought this for my Guy and he LOVED IT !!!, A gift to myself, and I absolutely love!, It was disappointing to me.  Perhaps it is the Color Combination???  I love Pink but it doesn't go with the trim color of the watch.  My Opinion!, In love!! Thank you, Strap looks better in real life, love the watch itself!!!, Amazing quality! Love it, This was a gift and the person I gave it to loved it very much!, it's pretty early to  to give a good rating, but I think I'm going to love it, PURCHASED FOR MY 6 YEAR OLD GRANDDAUGHTER AND SHE LOVES THIS WATCH! SHE WEARS IT ALL THE TIME!, My husband and I got this for our daughter for her birthday, and she absolutely loves it!!  It is so cute and looks even better than the pictures!, I love it.., I love it., I absolutely love this watch. I don't like that the battery died a month after I bought it., Love this watch, very simple and straight forward. nothing to distract you when trying to read time., This box is beautiful and was a great gift! I took it to a local engraver to have my husband's initials added, which just added to the character. Love this!, The watch is beautiful! I love it, Beautiful - love it!, I just loved it.. it's glass so you have to keep it clean from top and bottom but it worth it., Received quickly and will make a lovely Christmas gift!, It's OK,very pretty. It it much too large for me to wear, but would look lovely if you like BIG watches., Awesome watch!!! Love it, My husband LOVED it😁👍🏽👍🏽👍🏽👍🏽
+  '''
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #Topic Modeling - Latent Dirichlet Allocation:
 ##use LDA for clustering:
@@ -218,13 +239,18 @@ tfidf_model_lda = CountVectorizer(max_df=0.99, max_features=500,
                                  tokenizer=tokenization_and_stemming, ngram_range=(1,1))
 tfidf_matrix_lda = tfidf_model_lda.fit_transform(data) #fit the vectorizer to synopses
 print ("In total, there are " + str(tfidf_matrix_lda.shape[0]) + " reviews and " + str(tfidf_matrix_lda.shape[1]) + " terms.")
+  '''
   ->In total, there are 1000 reviews and 241 terms.
+  '''
 
 ##document topic matrix for tfidf_matrix_lda:
 lda_output = lda.fit_transform(tfidf_matrix_lda)
 print(lda_output.shape)
+  '''
   ->(1000, 5)
+  '''
 print(lda_output)
+  '''
   ->[[0.267658   0.02527952 0.02533378 0.65631055 0.02541815]
     [0.43183196 0.05033082 0.05122935 0.41467059 0.05193729]
     [0.2        0.2        0.2        0.2        0.2       ]
@@ -232,12 +258,16 @@ print(lda_output)
     [0.10000006 0.10000018 0.1001476  0.10000027 0.59985189]
     [0.05121262 0.05035092 0.79620894 0.05078363 0.05144389]
     [0.04086475 0.04015225 0.04035592 0.83828741 0.04033967]]
+  '''
 
 ##topics and words matrix:
 topic_word = lda.components_ #return words' weight
 print(topic_word.shape)
+  '''
   ->(5, 241)
+  '''
 print(topic_word)
+  '''
   ->[[ 0.20203973 14.86396652  0.20286023 ...  4.60641225  7.73017012
       14.22963933]
     [ 0.20405137  0.20254388  0.2019428  ...  4.30920637  3.24243968
@@ -248,6 +278,7 @@ print(topic_word)
       10.96275498]
     [ 5.44890059  0.20634397  1.47254006 ...  1.42491672  0.20248342
       1.68188873]]
+  '''
 
 ##get dominant topic for each document:
 topic_names = ["Topic" + str(i) for i in range(lda.n_components)]
@@ -256,6 +287,7 @@ df_document_topic = pd.DataFrame(np.round(lda_output, 2), columns=topic_names, i
 topic = np.argmax(df_document_topic.values, axis=1) #argmax returns the index of max
 df_document_topic['topic'] = topic
 df_document_topic.head(10)
+  '''
   ->	  Topic0	Topic1	Topic2	Topic3	Topic4	topic
   Doc0	0.27	  0.03	  0.03	  0.66	  0.03	  3
   Doc1	0.43	  0.05	  0.05	  0.41	  0.05	  0
@@ -267,14 +299,18 @@ df_document_topic.head(10)
   Doc7	0.03	  0.03	  0.03	  0.88	  0.03	  3
   Doc8	0.45	  0.01	  0.01	  0.40	  0.12	  0
   Doc9	0.34	  0.59	  0.03	  0.03	  0.03	  1
+  '''
 df_document_topic['topic'].value_counts().to_frame()
+  '''
   ->	topic
     0	347
     4	203
     3	200
     2	164
     1	86
+  '''
 print(lda.components_)
+  '''
   ->[[ 0.20203973 14.86396652  0.20286023 ...  4.60641225  7.73017012
       14.22963933]
     [ 0.20405137  0.20254388  0.2019428  ...  4.30920637  3.24243968
@@ -285,16 +321,19 @@ print(lda.components_)
       10.96275498]
     [ 5.44890059  0.20634397  1.47254006 ...  1.42491672  0.20248342
       1.68188873]]
+  '''
 df_topic_words = pd.DataFrame(lda.components_)
 df_topic_words.columns = tfidf_model_lda.get_feature_names()
 df_topic_words.index = topic_names
 df_topic_words.head()
+  '''
   ->      abl	      absolut	  accur	    actual	  adjust	  alarm	    alreadi	  alway	    amaz	    amazon	  anoth	    arm	      arriv	    automat	  awesom	bad	band	batteri	beauti	best	better	big	bit	black	blue	bought	box	bracelet	brand	break	bright	broke	button	buy	ca	came	case	casio	chang	cheap	...	star	start	stop	strap	sturdi	style	stylish	super	sure	surpris	swim	tell	thank	thing	think	thought	time	timex	tini	tri	turn	use	valu	ve	want	watch	water	way	wear	week	weight	went	wife	wind	wish	work	worn	worth	wrist	year
   Topic0	0.202040	14.863967	0.202860	5.529890	0.201217	0.201064	0.202880	0.202325	17.818958	2.291470	9.419924	1.231173	0.202120	0.202061	11.693599	0.201397	0.512500	0.201102	51.808378	0.202343	11.542969	31.254107	0.201864	0.201958	20.102105	34.647522	8.580048	0.573823	1.370027	0.202273	0.202905	0.204483	1.513410	14.733629	8.649232	8.869829	0.202031	4.367793	0.200394	2.248849	...	0.201509	0.202349	0.510112	0.200570	0.200762	8.914400	8.981508	8.195479	0.616868	6.565959	5.774276	0.201737	19.013880	6.067131	0.204748	1.304462	6.694409	0.200522	0.200656	0.201061	0.201164	0.203365	5.292874	0.202329	15.906663	249.759759	0.201258	3.537961	16.810428	0.202166	2.889952	0.202149	20.115633	0.201363	0.201570	0.202544	0.202793	4.606412	7.730170	14.229639
   Topic1	0.204051	0.202544	0.201943	1.657380	0.201057	9.354610	0.201204	6.290665	0.207402	0.202918	5.352467	0.208174	10.889075	0.200943	12.705067	5.577446	14.864984	39.943636	3.134694	0.220978	0.200679	0.202271	0.203132	10.114590	0.205937	0.208915	0.201641	0.203747	9.118432	0.202516	0.200878	2.504294	5.508759	0.201931	0.200858	9.661172	0.202931	0.205028	12.915371	0.202524	...	0.207552	1.855681	0.200652	2.578255	11.194936	5.057303	2.942352	0.200453	5.972785	0.206112	0.203551	0.202923	0.200683	0.200023	5.785759	0.203621	3.424910	0.202023	0.200362	7.755388	0.202848	12.350769	0.201857	0.203999	4.196104	39.892043	0.202906	4.143338	6.203790	6.088671	0.202087	5.981693	0.200480	0.200512	1.286948	0.546026	2.382373	4.309206	3.242440	13.664201
   Topic2	6.702126	0.203085	10.915666	0.201657	0.202672	1.273935	12.189216	6.784142	3.569011	6.928070	0.203437	7.080188	4.401018	10.932431	0.200541	3.250911	113.922961	7.451637	9.342688	14.928320	17.853676	7.608419	1.437527	0.204291	0.204275	12.987650	2.326421	1.416198	3.107995	9.046803	7.362650	0.207236	7.623583	29.324264	2.847944	11.383669	9.414342	14.022068	0.361295	35.145147	...	23.475232	5.756379	13.378904	15.347946	0.201762	2.989682	7.670282	0.200619	11.143398	5.820249	0.200745	6.262675	2.380990	9.436789	14.396689	3.151711	45.917139	21.191367	4.260304	2.362642	4.026303	25.159894	4.019571	27.835238	0.332550	309.481101	14.244569	4.835310	19.761825	32.425454	6.177393	3.454721	0.243096	14.194641	8.571657	27.960100	0.204203	7.457561	31.087688	16.461516
   Topic3	4.442882	2.524061	0.206991	9.409123	24.193429	5.965342	0.201899	0.201749	0.203036	18.373758	12.822955	6.027451	6.302618	6.463444	0.200315	0.203644	58.497362	0.201615	15.478670	0.447789	0.200992	21.231085	12.964105	12.721519	10.284880	1.954017	2.362414	11.605295	0.202252	2.966218	2.753484	3.312160	0.203519	16.537965	15.097776	2.480230	17.514556	0.204252	6.312867	0.202541	...	2.487741	7.985235	0.201280	25.696439	0.201173	13.834282	0.204227	7.202575	4.029932	0.202734	8.619053	0.231897	0.203293	6.453871	16.411204	12.135314	79.448251	0.204349	8.138351	5.685952	4.600628	34.004115	6.884211	13.556453	27.353260	288.735334	20.148709	5.282576	60.975150	4.285954	1.735577	4.154574	0.240469	0.201577	1.738024	1.146727	11.009424	0.201904	29.737219	10.962755
   Topic4	5.448901	0.206344	1.472540	0.201950	0.201625	0.205049	0.204801	0.521119	0.201593	0.203783	0.201218	1.453015	0.205168	0.201121	0.200479	16.766602	0.202192	0.202010	0.235571	0.200570	0.201683	0.704119	8.193373	2.757643	0.202803	0.201896	1.529475	0.200937	0.201294	2.582190	0.480082	18.771827	2.150729	0.202211	0.204189	0.605100	2.666140	0.200858	0.210073	0.200939	...	4.627966	0.200356	14.709052	4.176791	0.201367	0.204334	0.201630	0.200875	0.237016	0.204946	0.202375	16.100769	0.201153	2.842187	0.201601	0.204892	53.515291	0.201739	0.200327	5.994958	4.969057	12.281856	4.601487	0.201980	0.211423	80.131762	0.202557	0.200816	8.248807	7.997755	4.994991	0.206864	0.200321	0.201907	0.201801	104.144603	0.201208	1.424917	0.202483	1.681889
+  '''
 
 ##print top n keywords for each topic:
 def print_topic_words(tfidf_model, lda_model, n_words):
@@ -310,10 +349,12 @@ df_topic_words = pd.DataFrame(topic_keywords)
 df_topic_words.columns = ['Word '+str(i) for i in range(df_topic_words.shape[1])]
 df_topic_words.index = ['Topic '+str(i) for i in range(df_topic_words.shape[0])]
 df_topic_words
+  '''
   ->    Word 0  Word 1	Word 2	Word 3	Word 4	Word 5	Word 6	Word 7	Word 8	Word 9	Word 10	Word 11	Word 12	Word 13	Word 14
 Topic0	watch	love	great	look	beauti	color	price	realli	perfect	nice	bought	big	gift	qualiti	excel
 Topic1	like	batteri watch	product look	light	design	great	qualiti	band	set	seiko	year	chang	awesom
 Topic2	watch	band	look	like	time	hand	replac	cheap	second	week	wrist	buy	make	work	ve
 Topic3	watch	time	wear	band	great	look	face	read	like	larg	day	love	easi	small	use
 Topic4	good	work	nice	watch	time	price	light	look	hand	qualiti	expect	product	broke	bad	tell
+  '''
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------

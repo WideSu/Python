@@ -68,7 +68,7 @@ class LinkedList():
             new_head = self.head.next
             self.head = new_head
             self.size -= 1
-        elfi index == self.size - 1:
+        elif index == self.size - 1:
             new_tail = self.get(index - 1)
             new_tail.next = None
             self.tail = new_tail

@@ -1,5 +1,7 @@
 #goal:Evaluate the value of an arithmetic expression in Reverse Polish Notation.
+
 #example:["2", "1", "+", "3", "*"] -> ((2 + 1) * 3) -> 9
+
 #code:
 def reversed_string_math(str):
   import operator
@@ -12,6 +14,7 @@ def reversed_string_math(str):
     else:
       operands.append(int(elem))
   return operands[0]
+
 #complexity:
-time: O(n)
-space: O(n)
+#time: O(n)
+#space: O(n)

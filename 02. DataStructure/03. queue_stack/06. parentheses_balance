@@ -1,4 +1,5 @@
 #goal: given a list of '(' and ')', check whether the list valid (number match and order of () is right).
+
 #code:
 def parentheses_check(input):
   s = []

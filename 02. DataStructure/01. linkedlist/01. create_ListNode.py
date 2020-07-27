@@ -8,6 +8,8 @@ class ListNode():
         self.value = value
         
 #example:
+'''
 node1 = ListNode('a')
 node2 = ListNode('b')
 node1.next = node2 #we can change the parameter outside the class. this is actually creating a two node linkedlist
+'''

@@ -4,6 +4,7 @@ df2 = pd.DataFrame({'A': ['A4', 'A5', 'A6', 'A7'],'B': ['B4', 'B5', 'B6', 'B7'],
 df3 = pd.DataFrame({'A': ['A8', 'A9', 'A10', 'A11'],'B': ['B8', 'B9', 'B10', 'B11'],'C': ['C8', 'C9', 'C10', 'C11'],'D': ['D8', 'D9', 'D10', 'D11']})
 df4 = pd.concat([df1,df2,df3])
 print(df4)
+  '''
   ->     A    B    C    D
     0   A0   B0   C0   D0
     1   A1   B1   C1   D1
@@ -18,8 +19,10 @@ print(df4)
     2  A10  B10  C10  D10
     3  A11  B11  C11  D11
     #by default, index will not be reseted.
+  '''
 df5 = pd.concat([df1,df2,df3],ignore_index = True)
 print(df5)
+  '''
   ->      A    B    C    D
     0    A0   B0   C0   D0
     1    A1   B1   C1   D1
@@ -34,6 +37,7 @@ print(df5)
     10  A10  B10  C10  D10
     11  A11  B11  C11  D11
     #when ignore_index = True, will reset index, and default is False.
+  '''
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #join (same with sql):
 #four types of join: inner(default), outer, left, right
@@ -46,6 +50,7 @@ df_right = pd.DataFrame({'year':np.arange(1980,1990),'rain_cn':np.arange(800,810
 df_left = pd.DataFrame({'water_year':np.arange(1975,1995),'rain':np.arange(900,920),'outflow':np.arange(200,220)})
 join_df = pd.merge(df_left,df_right,left_on='water_year',right_on='year',how='inner')
 print(join_df)
+  '''
   ->   water_year  rain  outflow  year  rain_cn
     0        1980   905      205  1980      800
     1        1981   906      206  1981      801
@@ -57,6 +62,7 @@ print(join_df)
     7        1987   912      212  1987      807
     8        1988   913      213  1988      808
     9        1989   914      214  1989      809
+  '''
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #group by:
 #split data according to some criteria
@@ -64,9 +70,11 @@ df = pd.DataFrame({})
 df = pd.DataFrame({'race':['A','A','C','B','A','B','A','C'],'age':[11,54,67,25,29,44,9,20]})
 df.groupby('race')['age'].mean() #this means, we split based on race, and for each group, find the mean of column 'age'
 print(df.groupby('race')['age'].mean())
+  '''
   ->race
     A    25.75
     B    34.50
     C    43.50
     Name: age, dtype: float64
+  '''
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------

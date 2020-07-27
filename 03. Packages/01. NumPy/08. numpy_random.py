@@ -1,23 +1,32 @@
 #generate random number
 print(np.random.rand(2,2)) # Random numbers between [0,1) of shape 2,2
+  '''
   -> [[0.94295205 0.11725689]
       [0.85325198 0.83939604]]
+  '''
 print(np.random.randn(2,2)) # Normal distribution with mean=0 and variance=1 of shape 2,2
+  '''
   -> [[ 0.62820658 -0.12022571]
       [-2.00169518 -0.24775009]]
+  '''
 print(np.random.randint(0, 10, size=[2,2])) # Random integers between [0, 10) of shape 2,2
+  '''
   -> [[3 1]
       [0 7]]
+  '''
 print(np.random.random()) # One random number between [0,1)
-  -> 0.2907313460399378
+  #-> 0.2907313460399378
 print(np.random.random(size=[2,2])) # Random numbers between [0,1) of shape 2,2
+  '''
   -> [[0.4916531  0.06636227]
       [0.17424549 0.39105589]]
+  '''
 print(np.random.choice(['a', 'e', 'i', 'o', 'u'], size=10)) # Pick 10 items from a given list, with equal probability
-  -> ['o' 'i' 'o' 'a' 'i' 'o' 'e' 'o' 'o' 'o']
+  #-> ['o' 'i' 'o' 'a' 'i' 'o' 'e' 'o' 'o' 'o']
 print(np.random.choice(['a', 'e', 'i', 'o', 'u'], size=10, p=[0.3, 0.1, 0.1, 0.4, 0.1])) # Pick 10 items from a given list with a predefined probability 'p'
-  -> ['o' 'o' 'a' 'i' 'u' 'o' 'a' 'u' 'o' 'i']
+  #-> ['o' 'o' 'a' 'i' 'u' 'o' 'a' 'u' 'o' 'i']
 print(np.random.choice(np.arange(100), size=[10,3], replace=True)) # get 10x3 random samples from [0-99] with replacement 
+  '''
   -> [[30 76 93]
       [99  1 66]
       [96 88 17]
@@ -28,6 +37,7 @@ print(np.random.choice(np.arange(100), size=[10,3], replace=True)) # get 10x3 ra
       [55  8 38]
       [35 91 73]
       [15  3 77]]
+  '''
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #split data with pandas:
 #suppose we have a csv containing 100 data

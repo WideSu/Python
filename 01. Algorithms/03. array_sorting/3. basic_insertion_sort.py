@@ -23,5 +23,5 @@ def basic_insertion_sort(lst):
     return new_array
 
 #complexity:
-time complexity: O(n**2)
-space complexity: O(n)
+#time complexity: O(n**2)
+#space complexity: O(n)

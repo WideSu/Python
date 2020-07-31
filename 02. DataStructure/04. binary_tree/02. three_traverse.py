@@ -22,3 +22,16 @@ def helper(root,res):
   res.append(root.val)
   helper(root.right,res)
   
+#post order: first left node, then right node, and root at last.
+def postorder(root):
+  res = []
+  helper(root,res)
+  return res
+def helper(root,res):
+  if not root:
+    return
+  helper(root.left,res)
+  helper(root.right,res)
+  res.append(root.val)
+  
+#time complexity: O(n)

@@ -16,6 +16,18 @@ def level_print(root):
         q = next
         next = []
         line = []
-#complexity: time:O(n), space:O(max(len(q)))
+#complexity: time: O(n), space: O(max(len(q)))
 
-#Q2: 
+#Q2: given a binary tree where all the right nodes are either leaf nodes or empty, flip it inside down and turn it into a tree where the original right nodes turned into left leaf nodes.
+def upside_tree(root):
+  if not root:
+    return root
+  if not root.left and not root.right:
+    return root
+  new_root = upside_tree(root.left)
+  root.left.left = root.right
+  root.left.right = root
+  root.left = None
+  root.right = None
+  return new_root
+#complexity: time: O(n), space: O(h)

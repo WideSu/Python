@@ -11,4 +11,8 @@ def check_bst(root,min_val,max_val):
     return True
   if root.val <= min_val or root.val >= max_val:
     return False
-  
+  return check_bst(root.left,min_val,root.val) and check_bst(root.right,root.val,max_val)
+
+#complexity:
+#time: O(n)
+#space: O(height)

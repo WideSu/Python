@@ -30,3 +30,20 @@ def inorder(root,prev,res):
   prev[0] = root.val
   inorder(root.right,prev,res)
 #complexity: time: O(n), spcae: O(height)
+
+#solution3:
+def check_bst(root):
+  return helper(root)[0]
+def helper(root):
+  if not root:
+    return (True, None, None)
+  left_res = helper(root.left)
+  right_res = helper(root.right)
+  if not left_res[0] or not right_res[0]:
+    return (False, None, None)
+  if left_res[2] amd root.val <= left_res[2]:
+    return (False, None, None)
+  if right_res[1] and root.val >= right_res[1]:
+    return (False, None, None)
+  return (True, left_res[1] or root.val, right_res[2] or root.val)
+#complexity: time: O(n), spcae: O(height)

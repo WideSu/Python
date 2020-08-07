@@ -13,7 +13,6 @@ def check_bst(root,min_val,max_val):
   if root.val <= min_val or root.val >= max_val:
     return False
   return check_bst(root.left,min_val,root.val) and check_bst(root.right,root.val,max_val)
-
 #complexity: time: O(n), space: O(height)
 
 #solution2:
@@ -21,4 +20,13 @@ def check(root):
   prev = [None]
   res = [True]
   inorder(root,prev,res)
-  
+  return res[0]
+def inorder(root,prev,res):
+  if not root:
+    return
+  inorder(root.left,prev,res)
+  if prev[0] and prev[0] >= root.val:
+    res[0] = False
+  prev[0] = root.val
+  inorder(root.right,prev,res)
+#complexity: time: O(n), spcae: O(height)

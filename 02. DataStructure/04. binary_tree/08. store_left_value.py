@@ -12,3 +12,7 @@ def total_subtree(node):
   right_total = total_subtree(node.right)
   node.total_left = left_total
   return 1 + left_total + right_total
+
+#complexity:
+#time: O(n)
+#space: O(height)

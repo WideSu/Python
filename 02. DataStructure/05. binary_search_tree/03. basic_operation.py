@@ -92,13 +92,13 @@ class BST():
     root.left = self.delete_min(root.left)
     return root
   #delete
-  def delete(self,root,key):
+  def _delete(self,root,key):
     if not root:
       return None
     if key < root.key:
-      root.left = self.delete(root.left,key)
+      root.left = self._delete(root.left,key)
     elif key > root.key:
-      root.right = self.delete(root.right,key)
+      root.right = self._delete(root.right,key)
     else:
       if not root.right:
         return root.left
@@ -109,3 +109,5 @@ class BST():
       root.right = self.delete_min(t.right)
       root.left = t.left
     return root
+  def delete(self,key):
+    self.root = self._delete(self.root,key)

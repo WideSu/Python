@@ -1,5 +1,6 @@
 #goal: given a key, find its corresponding value
 
+#search:
 #recursive solution:
 class Node():
   def __init__(self,key,value):
@@ -37,3 +38,4 @@ class BST():
       else:
         return curr.value
     return None
+1
